@@ -5,16 +5,15 @@ import musicaUrl from '../assets/music.mp4'
 
 const canvasEl = ref(null)
 const audioEl = ref(null)
-const musicaSonando = ref(false)   // true cuando suena CON volumen
 let cleanup = () => {}
 
-// Reproduce la música con volumen (llamado desde el botón o el primer gesto)
+// Reproduce la música con volumen (llamado al primer gesto del usuario)
 function activarMusica() {
   const audio = audioEl.value
   if (!audio) return
   audio.muted = false
   audio.volume = 0.55
-  audio.play().then(() => { musicaSonando.value = true }).catch(() => {})
+  audio.play().catch(() => {})
 }
 
 // ---------- Dedicatorias bonitas (rotan en pantalla) ----------
@@ -392,17 +391,10 @@ onBeforeUnmount(() => cleanup())
     <audio ref="audioEl" :src="musicaUrl" loop autoplay playsinline hidden preload="auto"></audio>
     <canvas ref="canvasEl" class="lienzo"></canvas>
 
-    <button
-      v-if="!musicaSonando"
-      class="boton-musica"
-      @click="activarMusica"
-    >
-      🔊 Toca para escuchar la música
-    </button>
 
     <div class="overlay-top">
       <h1 class="titulo">Feliz Día del Amor y la Amistad</h1>
-      <p class="subtitulo">Un ramo de flores viajando por el universo, solo para ti, Niki Nicole 💛🤍</p>
+      <p class="subtitulo">Un ramo de flores viajando por el universo, solo para ti, Niki Nicole sonsaaaaaaa 💛🤍</p>
     </div>
 
     <div class="dedicatoria-zona">
