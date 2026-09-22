@@ -5,7 +5,17 @@ import musicaUrl from '../assets/music.mp4'
 
 const canvasEl = ref(null)
 const audioEl = ref(null)
+const musicaSonando = ref(false)   // true cuando suena CON volumen
 let cleanup = () => {}
+
+// Reproduce la música con volumen (llamado desde el botón o el primer gesto)
+function activarMusica() {
+  const audio = audioEl.value
+  if (!audio) return
+  audio.muted = false
+  audio.volume = 0.55
+  audio.play().then(() => { musicaSonando.value = true }).catch(() => {})
+}
 
 // ---------- Dedicatorias bonitas (rotan en pantalla) ----------
 const DEDICATORIAS = [
@@ -104,14 +114,12 @@ onMounted(() => {
   let quitarDesbloqueo = () => {}
   if (audio) {
     // Arranca en silencio (el autoplay silenciado SÍ lo permiten todos
-    // los navegadores) y al primer gesto del usuario quitamos el silencio.
+    // los navegadores); al primer gesto del usuario le damos volumen.
     audio.muted = true
-    audio.volume = 0.55
     audio.play().catch(() => {})
 
     const desbloquear = () => {
-      audio.muted = false
-      audio.play().catch(() => {})
+      activarMusica()
       quitarDesbloqueo()
     }
     window.addEventListener('pointerdown', desbloquear)
@@ -384,6 +392,14 @@ onBeforeUnmount(() => cleanup())
     <audio ref="audioEl" :src="musicaUrl" loop autoplay playsinline hidden preload="auto"></audio>
     <canvas ref="canvasEl" class="lienzo"></canvas>
 
+    <button
+      v-if="!musicaSonando"
+      class="boton-musica"
+      @click="activarMusica"
+    >
+      🔊 Toca para escuchar la música
+    </button>
+
     <div class="overlay-top">
       <h1 class="titulo">Feliz Día del Amor y la Amistad</h1>
       <p class="subtitulo">Un ramo de flores viajando por el universo, solo para ti, Niki Nicole 💛🤍</p>
@@ -410,6 +426,33 @@ onBeforeUnmount(() => cleanup())
   position: absolute;
   inset: 0;
   display: block;
+}
+
+.boton-musica {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  padding: 0.6rem 1rem;
+  border: 1px solid rgba(255, 216, 90, 0.6);
+  border-radius: 999px;
+  background: rgba(20, 10, 40, 0.6);
+  backdrop-filter: blur(6px);
+  color: #fff6da;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: clamp(0.8rem, 2.4vw, 0.95rem);
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 207, 61, 0.35);
+  animation: pulso 1.8s ease-in-out infinite;
+}
+
+.boton-musica:hover {
+  background: rgba(40, 22, 70, 0.75);
+}
+
+@keyframes pulso {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
 .overlay-top {
