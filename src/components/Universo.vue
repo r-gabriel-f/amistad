@@ -383,7 +383,7 @@ onBeforeUnmount(() => cleanup())
 
     <div class="overlay-top">
       <h1 class="titulo">Feliz Día del Amor y la Amistad</h1>
-      <p class="subtitulo">Un ramo de flores viajando por el universo, solo para ti 💛🤍</p>
+      <p class="subtitulo">Un ramo de flores viajando por el universo, solo para ti, Niki Nicole 💛🤍</p>
     </div>
 
     <div class="dedicatoria-zona">
