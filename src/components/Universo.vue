@@ -420,32 +420,6 @@ onBeforeUnmount(() => cleanup())
   display: block;
 }
 
-.boton-musica {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
-  padding: 0.6rem 1rem;
-  border: 1px solid rgba(255, 216, 90, 0.6);
-  border-radius: 999px;
-  background: rgba(20, 10, 40, 0.6);
-  backdrop-filter: blur(6px);
-  color: #fff6da;
-  font-family: "Segoe UI", system-ui, sans-serif;
-  font-size: clamp(0.8rem, 2.4vw, 0.95rem);
-  cursor: pointer;
-  box-shadow: 0 0 20px rgba(255, 207, 61, 0.35);
-  animation: pulso 1.8s ease-in-out infinite;
-}
-
-.boton-musica:hover {
-  background: rgba(40, 22, 70, 0.75);
-}
-
-@keyframes pulso {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
 
 .overlay-top {
   position: absolute;
