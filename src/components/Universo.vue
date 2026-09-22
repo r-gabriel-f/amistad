@@ -103,17 +103,20 @@ onMounted(() => {
   const audio = audioEl.value
   let quitarDesbloqueo = () => {}
   if (audio) {
+    // Arranca en silencio (el autoplay silenciado SÍ lo permiten todos
+    // los navegadores) y al primer gesto del usuario quitamos el silencio.
+    audio.muted = true
     audio.volume = 0.55
-    const intentarReproducir = () => audio.play().catch(() => {})
-    intentarReproducir()
-    // Respaldo: si el navegador bloquea el autoplay, arranca al primer gesto
+    audio.play().catch(() => {})
+
     const desbloquear = () => {
-      intentarReproducir()
+      audio.muted = false
+      audio.play().catch(() => {})
       quitarDesbloqueo()
     }
-    window.addEventListener('pointerdown', desbloquear, { once: true })
-    window.addEventListener('keydown', desbloquear, { once: true })
-    window.addEventListener('touchstart', desbloquear, { once: true })
+    window.addEventListener('pointerdown', desbloquear)
+    window.addEventListener('keydown', desbloquear)
+    window.addEventListener('touchstart', desbloquear)
     quitarDesbloqueo = () => {
       window.removeEventListener('pointerdown', desbloquear)
       window.removeEventListener('keydown', desbloquear)
@@ -378,7 +381,7 @@ onBeforeUnmount(() => cleanup())
 
 <template>
   <div class="universo">
-    <audio ref="audioEl" :src="musicaUrl" loop autoplay hidden preload="auto"></audio>
+    <audio ref="audioEl" :src="musicaUrl" loop autoplay playsinline hidden preload="auto"></audio>
     <canvas ref="canvasEl" class="lienzo"></canvas>
 
     <div class="overlay-top">
