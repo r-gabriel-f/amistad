@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la /Users/robert/Desktop/Mio/amistad 2>/dev/null && echo \"---\" && ls -la /Users/robert/Desktop/Mio 2>/dev/null)",
+      "Read(//Users/robert/Desktop/Mio/**)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5173/ -o /dev/null -w \"Status: %{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:5173/src/components/Universo.vue -o /dev/null -w \"Componente Universo: %{http_code}\\\\n\")",
+      "Bash(curl -s http://localhost:5173/src/components/Universo.vue -o /dev/null -w \"Universo: %{http_code}\\\\n\")"
+    ]
+  }
+}
